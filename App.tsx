@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {LoadingSpinner} from './components/LoadingSpinner';
+import {LoadingSpinner} from './src/components/LoadingSpinner';
+import {Users} from './src/pages/Users';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -10,5 +11,5 @@ export default function App() {
     }, 3000);
   });
 
-  return loading ? <LoadingSpinner /> : null;
+  return loading ? <LoadingSpinner /> : <Users />;
 }

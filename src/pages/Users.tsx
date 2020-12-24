@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Fragment} from 'react';
+import React, {useState, useEffect, Fragment, useCallback} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,14 +10,31 @@ import {
 import axios from 'axios';
 import {Header} from '../components/Header';
 
+type User = {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar?: string;
+};
+
 export function Users() {
-  const [users, setUsers] = useState();
+  const [users, setUsers] = useState<User[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [shouldFetch, setShouldFetch] = useState(true);
+
+  const fetchMore = useCallback(() => setShouldFetch(true), []);
 
   useEffect(() => {
-    axios.get('https://reqres.in/api/users?page=2').then((response) => {
-      setUsers(response.data.data);
+    if (!shouldFetch) {
+      return;
+    }
+    axios.get(`https://reqres.in/api/users?page=${page}`).then((response) => {
+      setShouldFetch(false);
+      setPage(page + 1);
+      setUsers((prevUsers) => response.data.data.concat(prevUsers));
     });
-  }, []);
+  }, [page, shouldFetch]);
 
   return (
     <Fragment>
@@ -36,6 +53,8 @@ export function Users() {
                 </Text>
               </View>
             )}
+            onEndReachedThreshold={0.9}
+            onEndReached={fetchMore}
           />
         </View>
       </SafeAreaView>

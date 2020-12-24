@@ -7,19 +7,16 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
 import {Header} from '../components/Header';
-
-type User = {
-  id: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  avatar?: string;
-};
+import {GET_ALL_USERS_REQUEST} from '../redux/constants';
+import {getUserState} from '../redux/selectors';
 
 export function Users() {
-  const [users, setUsers] = useState<User[]>([]);
+  const dispatch = useDispatch();
+  const {users} = useSelector(getUserState);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState<number>(1);
   const [shouldFetch, setShouldFetch] = useState(true);
 
@@ -29,12 +26,8 @@ export function Users() {
     if (!shouldFetch) {
       return;
     }
-    axios.get(`https://reqres.in/api/users?page=${page}`).then((response) => {
-      setShouldFetch(false);
-      setPage(page + 1);
-      setUsers((prevUsers) => response.data.data.concat(prevUsers));
-    });
-  }, [page, shouldFetch]);
+    dispatch({type: GET_ALL_USERS_REQUEST, payload: {page}});
+  }, [page, shouldFetch, dispatch]);
 
   return (
     <Fragment>

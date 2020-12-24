@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './reducer';
 import rootSaga from './sagas';
+import {RootState} from './types';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -13,7 +14,7 @@ declare global {
   }
 }
 
-export default function configureStore(initialState: any) {
+export default function configureStore() {
   const middlewares = [sagaMiddleware];
   const enhancers = [applyMiddleware(...middlewares)];
 
@@ -26,7 +27,7 @@ export default function configureStore(initialState: any) {
 
   const store = createStore(
     rootReducer,
-    initialState,
+    <RootState>{},
     composeEnhancers(...enhancers),
   );
 

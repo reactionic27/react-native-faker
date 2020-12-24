@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -20,29 +20,36 @@ export function Users() {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title="Users" />
-      <View style={styles.list}>
-        <FlatList
-          data={users}
-          renderItem={({item, index}) => (
-            <View style={styles.listItem} key={index}>
-              <Image source={{uri: item.avatar}} style={styles.avatar} />
-              <Text style={styles.name}>
-                {`${item.first_name} ${item.last_name}`}
-              </Text>
-            </View>
-          )}
-        />
-      </View>
-    </SafeAreaView>
+    <Fragment>
+      <SafeAreaView style={styles.banner} />
+      <SafeAreaView style={styles.container}>
+        <Header title="Users" />
+        <View style={styles.list}>
+          <FlatList
+            data={users}
+            renderItem={({item, index}) => (
+              <View style={styles.listItem} key={index}>
+                <Image source={{uri: item.avatar}} style={styles.avatar} />
+                <Text style={styles.name}>
+                  {`${item.first_name} ${item.last_name}`}
+                </Text>
+              </View>
+            )}
+          />
+        </View>
+      </SafeAreaView>
+    </Fragment>
   );
 }
 
 const styles = StyleSheet.create({
+  banner: {
+    flex: 0,
+    backgroundColor: '#F1F1F1',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#FFFFFF',
   },
   list: {
     flex: 1,

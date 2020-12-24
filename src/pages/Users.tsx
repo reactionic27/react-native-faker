@@ -15,19 +15,13 @@ import {getUserState} from '../redux/selectors';
 export function Users() {
   const dispatch = useDispatch();
   const {users} = useSelector(getUserState);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState<number>(1);
-  const [shouldFetch, setShouldFetch] = useState(true);
 
-  const fetchMore = useCallback(() => setShouldFetch(true), []);
+  const fetchMore = useCallback(() => setPage(page + 1), [page]);
 
   useEffect(() => {
-    if (!shouldFetch) {
-      return;
-    }
     dispatch({type: GET_ALL_USERS_REQUEST, payload: {page}});
-  }, [page, shouldFetch, dispatch]);
+  }, [dispatch, page]);
 
   return (
     <Fragment>

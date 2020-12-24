@@ -19,7 +19,7 @@ export default (state = initialState, action: any) => {
     case GET_ALL_USERS_SUCCESS:
       return {
         ...state,
-        users: action.payload,
+        users: [...state.users, ...action.payload],
       };
     case GET_ALL_USERS_FAILURE:
       return {

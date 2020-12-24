@@ -17,7 +17,7 @@ export function Users() {
     axios.get('https://reqres.in/api/users?page=2').then((response) => {
       setUsers(response.data.data);
     });
-  });
+  }, []);
 
   return (
     <Fragment>
@@ -27,8 +27,9 @@ export function Users() {
         <View style={styles.list}>
           <FlatList
             data={users}
-            renderItem={({item, index}) => (
-              <View style={styles.listItem} key={index}>
+            keyExtractor={(item) => item.email}
+            renderItem={({item}) => (
+              <View style={styles.listItem}>
                 <Image source={{uri: item.avatar}} style={styles.avatar} />
                 <Text style={styles.name}>
                   {`${item.first_name} ${item.last_name}`}

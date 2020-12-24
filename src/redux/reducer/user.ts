@@ -3,7 +3,6 @@ import {
   GET_ALL_USERS_SUCCESS,
   GET_ALL_USERS_FAILURE,
 } from '../constants';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {UserState} from '../types';
 
 const initialState: UserState = {

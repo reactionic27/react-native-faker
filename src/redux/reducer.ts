@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {combineReducers, Reducer} from 'redux';
 
 import userReducer from './reducer/user';

@@ -1,4 +1,5 @@
 import {put, call, takeEvery} from 'redux-saga/effects';
+import {SagaIterator} from '@redux-saga/core';
 import {
   GET_ALL_USERS_REQUEST,
   GET_ALL_USERS_SUCCESS,
@@ -6,7 +7,7 @@ import {
 } from '../constants';
 import {getUsersAPI} from '../api';
 
-function* getAllUsers({payload}: any) {
+function* getAllUsers({payload}: any): SagaIterator {
   try {
     const response = yield call(getUsersAPI, payload.page);
     yield put({type: GET_ALL_USERS_SUCCESS, payload: response.data.data});
@@ -15,6 +16,6 @@ function* getAllUsers({payload}: any) {
   }
 }
 
-export function* userSaga() {
+export function* userSaga(): SagaIterator {
   yield takeEvery(GET_ALL_USERS_REQUEST, getAllUsers);
 }

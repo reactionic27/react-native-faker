@@ -6,8 +6,9 @@ import {
   GET_ALL_USERS_FAILURE,
 } from '../constants';
 import {getUsersAPI} from '../api';
+import {PayloadType} from '../types';
 
-function* getAllUsers({payload}: any): SagaIterator {
+function* getAllUsers({payload}: PayloadType): SagaIterator {
   try {
     const response = yield call(getUsersAPI, payload.page);
     yield put({type: GET_ALL_USERS_SUCCESS, payload: response.data.data});

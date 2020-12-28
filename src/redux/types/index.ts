@@ -13,3 +13,10 @@ export type UserState = {
 export type RootState = {
   userState: UserState;
 };
+
+export type PayloadType = {
+  type: string;
+  payload: {
+    page: number;
+  };
+};
